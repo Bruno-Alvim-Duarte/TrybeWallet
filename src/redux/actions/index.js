@@ -1,6 +1,8 @@
 // Coloque aqui suas actions
 export const SAVE_EMAIL = 'SAVE_EMAIL';
 export const SAVE_COINS = 'SAVE_COINS';
+export const SAVE_EXPENSE = 'SAVE_EXPENSE';
+export const UPDATE_TOTAL_EXPENSE = 'UPDATE_TOTAL_EXPENSE';
 
 export const saveEmail = (payload) => ({
   type: SAVE_EMAIL,
@@ -9,6 +11,11 @@ export const saveEmail = (payload) => ({
 
 export const saveCoins = (payload) => ({
   type: SAVE_COINS,
+  payload,
+});
+
+export const saveExpense = (payload) => ({
+  type: SAVE_EXPENSE,
   payload,
 });
 

@@ -1,15 +1,20 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCoins } from '../redux/actions';
+import { fetchCoins, saveExpense } from '../redux/actions';
 
 class WalletForm extends Component {
-  state = {
+  INITAL_STATE = {
     value: '',
     description: '',
     currency: 'USD',
     method: 'money',
     tag: 'food',
+    id: 0,
+    exchangeRates: {} };
+
+  state = {
+    ...this.INITAL_STATE,
   };
 
   async componentDidMount() {
@@ -22,6 +27,22 @@ class WalletForm extends Component {
     this.setState({
       [name]: value,
     });
+  };
+
+  addExpense = async () => {
+    const { dispatch } = this.props;
+    const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
+      .then((response) => response.json())
+      .then((data) => data);
+    delete exchangeRates.USDT;
+
+    const dispatching = async () => {
+      await dispatch(saveExpense(this.state));
+      this.setState(this.INITAL_STATE);
+    };
+
+    const { expenses } = this.props;
+    this.setState({ id: expenses.length, exchangeRates }, dispatching);
   };
 
   render() {
@@ -66,9 +87,9 @@ class WalletForm extends Component {
             value={ method }
             onChange={ this.handleChange }
           >
-            <option value="money">Dinheiro</option>
-            <option value="credit-card">Cartão de crédito</option>
-            <option value="debit-card">Cartão de débito</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
           </select>
         </label>
 
@@ -81,13 +102,14 @@ class WalletForm extends Component {
             value={ tag }
             onChange={ this.handleChange }
           >
-            <option value="food">Alimentação</option>
-            <option value="recreation">Lazer</option>
-            <option value="work">Trabalho</option>
-            <option value="transport">Transporte</option>
-            <option value="health">Saúde</option>
+            <option value="Alimentação">Alimentação</option>
+            <option value="Lazer">Lazer</option>
+            <option value="Trabalho">Trabalho</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Saúde">Saúde</option>
           </select>
         </label>
+        <button onClick={ this.addExpense }>Adicionar despesa</button>
       </div>
     );
   }
@@ -96,10 +118,13 @@ class WalletForm extends Component {
 WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   dispatch: PropTypes.func.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+  exchangeRates: state.wallet.exchangeRates,
 });
 
 export default connect(mapStateToProps)(WalletForm);
