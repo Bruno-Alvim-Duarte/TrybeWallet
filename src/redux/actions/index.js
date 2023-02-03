@@ -4,6 +4,8 @@ export const SAVE_COINS = 'SAVE_COINS';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
 export const UPDATE_TOTAL_EXPENSE = 'UPDATE_TOTAL_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE_REQUEST = 'EDIT_EXPENSE_REQUEST';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const saveEmail = (payload) => ({
   type: SAVE_EMAIL,
@@ -22,6 +24,16 @@ export const saveExpense = (payload) => ({
 
 export const deleteExpense = (payload) => ({
   type: DELETE_EXPENSE,
+  payload,
+});
+
+export const editExpenseRequest = (payload) => ({
+  type: EDIT_EXPENSE_REQUEST,
+  payload,
+});
+
+export const editExpense = (payload) => ({
+  type: EDIT_EXPENSE,
   payload,
 });
 
