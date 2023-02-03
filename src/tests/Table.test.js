@@ -87,6 +87,7 @@ describe('Testa o componente Table e suas funcionalidades, presente na page Wall
     await waitFor(() => {
       const stateUpdated = store.getState();
       return expect(stateUpdated.wallet.expenses[0]).toMatchObject(editedExpense);
+      //
     });
   });
 });
