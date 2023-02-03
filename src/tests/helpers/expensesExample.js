@@ -25,8 +25,8 @@ const INITIAL_STATE_EXAMPLE = {
         value: '10',
         description: 'Coxinha',
         currency: 'USD',
-        method: 'money',
-        tag: 'food',
+        method: 'Dinheiro',
+        tag: 'Alimentação',
         id: 0,
         exchangeRates: {
           USD: {
