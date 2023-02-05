@@ -5,7 +5,7 @@ import { deleteExpense, editExpenseRequest } from '../redux/actions';
 
 class Table extends Component {
   render() {
-    const { expenses, dispatch } = this.props;
+    const { expenses, dispatch, editingExpenseChangeInputValues } = this.props;
     return (
       <div>
         <table>
@@ -58,9 +58,10 @@ class Table extends Component {
 
                   <button
                     data-testid="edit-btn"
-                    onClick={
-                      () => dispatch(editExpenseRequest({ edit: true, id: expense.id }))
-                    }
+                    onClick={ () => {
+                      editingExpenseChangeInputValues(expense);
+                      dispatch(editExpenseRequest({ edit: true, id: expense.id }));
+                    } }
                   >
                     Editar
 
@@ -79,6 +80,7 @@ class Table extends Component {
 Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   dispatch: PropTypes.func.isRequired,
+  editingExpenseChangeInputValues: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

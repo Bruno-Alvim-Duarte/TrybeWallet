@@ -2,7 +2,6 @@ import React from 'react';
 import { screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import Table from '../components/Table';
 import Wallet from '../pages/Wallet';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
 import INITIAL_STATE_EXAMPLE from './helpers/expensesExample';
@@ -20,17 +19,17 @@ describe('Testa o componente Table e suas funcionalidades, presente na page Wall
   const coinCovert1Expected = 'Dólar Americano/Real Brasileiro';
   const coinCovert2Expected = 'Euro/Real Brasileiro';
   test('testa se os dados estão aparecendo na table', () => {
-    renderWithRouterAndRedux(<Table />, { initialState: INITIAL_STATE_EXAMPLE });
+    renderWithRouterAndRedux(<Wallet />, { initialState: INITIAL_STATE_EXAMPLE });
 
     expect(screen.getAllByText(valuesExpected)).toHaveLength(2);
     expect(screen.getByText(description1Expected)).toBeInTheDocument();
     expect(screen.getByText(description2Expected)).toBeInTheDocument();
-    expect(screen.getByText(currency1Expected)).toBeInTheDocument();
-    expect(screen.getByText(currency2Expected)).toBeInTheDocument();
-    expect(screen.getByText(method1Expected)).toBeInTheDocument();
-    expect(screen.getByText(method2Expected)).toBeInTheDocument();
-    expect(screen.getByText(tag1Expected)).toBeInTheDocument();
-    expect(screen.getByText(tag2Expected)).toBeInTheDocument();
+    expect(screen.getAllByText(currency1Expected)).toHaveLength(2);
+    expect(screen.getAllByText(currency2Expected)).toHaveLength(2);
+    expect(screen.getAllByText(method1Expected)).toHaveLength(2);
+    expect(screen.getAllByText(method2Expected)).toHaveLength(2);
+    expect(screen.getAllByText(tag1Expected)).toHaveLength(2);
+    expect(screen.getAllByText(tag2Expected)).toHaveLength(2);
     expect(screen.getByText(coinCovert1Expected)).toBeInTheDocument();
     expect(screen.getByText(coinCovert2Expected)).toBeInTheDocument();
   });
@@ -65,6 +64,9 @@ describe('Testa o componente Table e suas funcionalidades, presente na page Wall
     const currencyInput = screen.getByTestId('currency-input');
     const methodInput = screen.getByTestId('method-input');
     const tagInput = screen.getByTestId('tag-input');
+    userEvent.clear(valueInput);
+    userEvent.clear(descriptionInput);
+
     userEvent.type(valueInput, '30');
     userEvent.type(descriptionInput, 'editando');
     userEvent.selectOptions(currencyInput, 'BTC');

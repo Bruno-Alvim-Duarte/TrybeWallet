@@ -3,8 +3,8 @@ import { screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
 import { renderWithRouterAndRedux } from './helpers/renderWith';
-import WalletForm from '../components/WalletForm';
 import expenses from './helpers/expenseFormat';
+import Wallet from '../pages/Wallet';
 
 describe('testa o componente WalletForm presente na page Wallet', () => {
   const userCreateExpense = async () => {
@@ -22,7 +22,7 @@ describe('testa o componente WalletForm presente na page Wallet', () => {
   };
 
   test('testa se é possível selecionar valores em todos os inputs', async () => {
-    renderWithRouterAndRedux(<WalletForm />);
+    renderWithRouterAndRedux(<Wallet />);
 
     await userCreateExpense();
     const valueInput = screen.getByTestId('value-input');
@@ -40,7 +40,7 @@ describe('testa o componente WalletForm presente na page Wallet', () => {
   });
 
   test('testa se ao adicionar a despesa ela vai pro estado global e no formato correto', async () => {
-    const { store } = renderWithRouterAndRedux(<WalletForm />);
+    const { store } = renderWithRouterAndRedux(<Wallet />);
 
     await userCreateExpense();
 

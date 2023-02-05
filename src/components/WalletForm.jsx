@@ -1,98 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editExpense, editExpenseRequest,
-  fetchCoins, saveExpense } from '../redux/actions';
+import { fetchCoins } from '../redux/actions';
 
 class WalletForm extends Component {
-  INITAL_STATE = {
-    value: '',
-    description: '',
-    currency: 'USD',
-    method: 'Dinheiro',
-    tag: 'Alimentação',
-    id: 0,
-    exchangeRates: {},
-  };
-
-  // constructor(props) {
-  //   super(props);
-
-  //   this.state = this.ifEditor(props);
-  // }
-
-  state = {
-    ...this.INITAL_STATE,
-  };
-
   async componentDidMount() {
     const { dispatch } = this.props;
     await dispatch(fetchCoins());
   }
 
-  // ifEditor = (props) => {
-  //   const { editor, expenses, idToEdit } = props;
-  //   if (editor) {
-  //     const findExpenseToEdit = expenses.find((expense) => expense.id === idToEdit);
-  //     delete findExpenseToEdit.exchangeRates;
-  //     return findExpenseToEdit;
-  //   }
-  //   return this.INITAL_STATE;
-  // };
-
-  handleChange = ({ target }) => {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  addExpense = async () => {
-    const { dispatch } = this.props;
-    const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((data) => data);
-    delete exchangeRates.USDT;
-
-    const dispatching = async () => {
-      await dispatch(saveExpense(this.state));
-      this.setState(this.INITAL_STATE);
-    };
-
-    const { expenses } = this.props;
-    this.setState({ id: expenses.length, exchangeRates }, dispatching);
-  };
-
-  editExpenseBtn = async () => {
-    const { dispatch, idToEdit } = this.props;
-
-    const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((data) => data);
-    delete exchangeRates.USDT;
-
-    const dispatching = () => {
-      dispatch(editExpenseRequest({ editor: false, id: 0 }));
-      dispatch(editExpense(this.state));
-      this.setState(this.INITAL_STATE);
-    };
-
-    this.setState({ id: idToEdit, exchangeRates }, dispatching);
-  };
-
   render() {
-    const { currencies, editor } = this.props;
-    const { value, description, currency, method, tag } = this.state;
-    // if (editor) {
-    //   if (value !== rest.value) {
-    //     this.setState(rest);
-    //   }
-    // }
-    // console.log('bla');
-    // const { exchangeRates, ...rest } = expenses.find(
-    //   (expense) => expense.id === idToEdit,
-    // );
-    // const valueToRender = rest.value || value;
+    const { currencies, editor, addExpense, editExpenseBtn,
+      value, description, currency, method, tag, handleChange } = this.props;
     return (
       <div>
         <input
@@ -100,14 +19,14 @@ class WalletForm extends Component {
           type="number"
           data-testid="value-input"
           value={ value }
-          onChange={ this.handleChange }
+          onChange={ handleChange }
         />
         <input
           name="description"
           type="text"
           data-testid="description-input"
           value={ description }
-          onChange={ this.handleChange }
+          onChange={ handleChange }
         />
         <label htmlFor="currency">
           Moeda
@@ -116,7 +35,7 @@ class WalletForm extends Component {
             id="currency"
             data-testid="currency-input"
             value={ currency }
-            onChange={ this.handleChange }
+            onChange={ handleChange }
           >
             {currencies.map((eachCurrency) => (
               <option value={ eachCurrency } key={ eachCurrency }>{eachCurrency}</option>
@@ -130,7 +49,7 @@ class WalletForm extends Component {
             id="method"
             data-testid="method-input"
             value={ method }
-            onChange={ this.handleChange }
+            onChange={ handleChange }
           >
             <option value="Dinheiro">Dinheiro</option>
             <option value="Cartão de crédito">Cartão de crédito</option>
@@ -145,7 +64,7 @@ class WalletForm extends Component {
             id="tag"
             data-testid="tag-input"
             value={ tag }
-            onChange={ this.handleChange }
+            onChange={ handleChange }
           >
             <option value="Alimentação">Alimentação</option>
             <option value="Lazer">Lazer</option>
@@ -155,7 +74,7 @@ class WalletForm extends Component {
           </select>
         </label>
         <button
-          onClick={ editor ? this.editExpenseBtn : this.addExpense }
+          onClick={ editor ? editExpenseBtn : addExpense }
         >
           { editor ? 'Editar despesa' : 'Adicionar Despesa'}
 
@@ -168,9 +87,15 @@ class WalletForm extends Component {
 WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   dispatch: PropTypes.func.isRequired,
-  expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   editor: PropTypes.bool,
-  idToEdit: PropTypes.number.isRequired,
+  editExpenseBtn: PropTypes.func.isRequired,
+  addExpense: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
+  method: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 WalletForm.defaultProps = {
