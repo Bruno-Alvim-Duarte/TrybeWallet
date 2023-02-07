@@ -1,0 +1,89 @@
+body {
+  align-items: center;
+  background: #2fc18c;
+  background-image: url('../imgs/backgroundImg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin: 0;
+}
+
+.loginPage {
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.6) 0 10px 25px;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  padding: 20px;
+  text-align: center;
+}
+
+.loginPage--logo {
+  background-image: url('../imgs/TrybeWalletLogo.png');
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: 100px;
+  width: 300px;
+}
+
+
+.loginPage--txt_field {
+  border-bottom: 2px solid #adadad;
+  margin: 20px;
+  position: relative;
+}
+
+.loginPage--txt_field input {
+  border: none;
+  font-size: 16px;
+  height: 40px;
+  outline: none;
+  width: 100%;
+}
+
+.loginPage--txt_field p {
+  color: #adadad;
+  left: 5px;
+  position: absolute;
+  top: 30%;
+  transform: translateY(-50%);
+  transition: 0.3s;
+}
+
+.loginPage--txt_field span:before {
+  background-color: #2691d9;
+  content: '';
+  height: 3px;
+  left: 0;
+  position: absolute;
+  top: 40px;
+  width: 100%;
+}
+
+.loginPage--txt_field input:focus ~ p , .loginPage--txt_field input:valid ~ p {
+  color: #2691d9;
+  top: -15px;
+}
+
+.loginPage--Btn {
+  border: none;
+  border-radius: 7px;
+  cursor: not-allowed;
+  font-size: 16px;
+  padding: 5px 0;
+}
+
+.loginPage--Btn:disabled {
+  background-color: rgb(0, 0, 0, 0.2);
+}
+
+.loginPage--Btn:enabled {
+  background-color: #003be5;
+  color: white;
+  cursor: pointer;
+
+}
