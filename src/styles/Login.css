@@ -1,25 +1,36 @@
 body {
-  align-items: center;
-  background: #2fc18c;
+  background: #42d49f;
   background-image: url('../imgs/backgroundImg.png');
   background-repeat: no-repeat;
   background-size: cover;
   box-sizing: border-box;
-  display: flex;
   height: 100vh;
-  justify-content: center;
   margin: 0;
 }
 
 .loginPage {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.main--login-page {
+  align-items: center;
   background-color: white;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.6) 0 10px 25px;
   display: flex;
   flex-direction: column;
-  min-width: 300px;
   padding: 20px;
   text-align: center;
+  width: 30rem;
+
+}
+
+.loginPage button {
+  width: 10rem;
 }
 
 .loginPage--logo {
@@ -85,5 +96,4 @@ body {
   background-color: #003be5;
   color: white;
   cursor: pointer;
-
 }

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { saveEmail } from '../redux/actions';
-import './Login.css';
+import '../styles/Login.css';
 
 class Login extends React.Component {
   state = {
@@ -38,41 +38,43 @@ class Login extends React.Component {
     const { isBtnDisabled } = this.state;
     return (
       <div className="loginPage">
-        <div className="loginPage--logo" />
+        <div className="main--login-page">
+          <div className="loginPage--logo" />
 
-        <div className="loginPage--txt_field">
-          <input
-            type="text"
-            name="email"
-            data-testid="email-input"
-            spellCheck="false"
-            required
-            className="loginPage--inputs"
-            onChange={ this.handleChange }
-          />
-          <p>Email</p>
-          <span />
-        </div>
-        <div className="loginPage--txt_field">
-          <input
-            type="text"
-            name="password"
-            spellCheck="false"
-            required
-            data-testid="password-input"
-            onChange={ this.handleChange }
-          />
-          <p>Senha</p>
-          <span />
-        </div>
-        <button
-          className="loginPage--Btn"
-          disabled={ isBtnDisabled }
-          onClick={ this.onClickLogin }
-        >
-          Entrar
+          <div className="loginPage--txt_field">
+            <input
+              type="text"
+              name="email"
+              data-testid="email-input"
+              spellCheck="false"
+              required
+              className="loginPage--inputs"
+              onChange={ this.handleChange }
+            />
+            <p>Email</p>
+            <span />
+          </div>
+          <div className="loginPage--txt_field">
+            <input
+              type="text"
+              name="password"
+              spellCheck="false"
+              required
+              data-testid="password-input"
+              onChange={ this.handleChange }
+            />
+            <p>Senha</p>
+            <span />
+          </div>
+          <button
+            className="loginPage--Btn"
+            disabled={ isBtnDisabled }
+            onClick={ this.onClickLogin }
+          >
+            Entrar
 
-        </button>
+          </button>
+        </div>
       </div>
     );
   }

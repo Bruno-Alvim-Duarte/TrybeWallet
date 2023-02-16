@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import Table from '../components/Table';
 import WalletForm from '../components/WalletForm';
 import { editExpense, editExpenseRequest, saveExpense } from '../redux/actions';
+import '../styles/Wallet.css';
 
 class Wallet extends Component {
   INITIAL_STATE = {
@@ -67,15 +68,19 @@ class Wallet extends Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        <WalletForm
-          handleChange={ this.handleChange }
-          addExpense={ this.addExpense }
-          editExpenseBtn={ this.editExpenseBtn }
-          { ...this.state }
-        />
-        <Table editingExpenseChangeInputValues={ this.editingExpenseChangeInputValues } />
+      <div className="wallet">
+        <div className="wallet--main">
+          <Header />
+          <WalletForm
+            handleChange={ this.handleChange }
+            addExpense={ this.addExpense }
+            editExpenseBtn={ this.editExpenseBtn }
+            { ...this.state }
+          />
+          <Table
+            editingExpenseChangeInputValues={ this.editingExpenseChangeInputValues }
+          />
+        </div>
       </div>
     );
   }

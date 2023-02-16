@@ -1,0 +1,13 @@
+.wallet {
+  align-items: flex-start;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100vw;
+}
+
+.wallet--main {
+  background-color: white;
+  border-radius: 1.6rem;
+  padding: 20px;
+}

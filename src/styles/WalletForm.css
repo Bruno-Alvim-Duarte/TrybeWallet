@@ -1,0 +1,19 @@
+.wallet-form--up {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.wallet-form--down {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+
+.wallet-form label {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: large;
+  font-weight: 300;
+}
+
