@@ -1,3 +1,16 @@
+.wallet-form {
+  color: #003be5;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.wallet-form--input {
+  border: 1px solid #003be5;
+  color: #003be5;
+  font-size: 16px;
+  font-weight: 400;
+}
+
 .wallet-form--up {
   display: flex;
   justify-content: space-evenly;
@@ -13,7 +26,25 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  font-size: large;
-  font-weight: 300;
+}
+
+.wallet-form--btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.wallet-form--btn button {
+  background: #2fc18c;
+  border: 1px solid #2fc18c;
+  border-radius: 5px;
+  color: white;
+  font-weight: 700;
+  padding: 10px 50px;
+}
+
+.wallet-form--btn button:hover {
+  cursor: pointer;
+  scale: 1.1;
 }
 

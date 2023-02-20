@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import '../styles/Header.css';
+import logoTrybeWallet from '../imgs/logoTrybeWallet.svg';
+import coins from '../imgs/Coins.svg';
+import perfilLogo from '../imgs/perfilLogo.svg';
 
 class Header extends Component {
   render() {
@@ -14,22 +18,30 @@ class Header extends Component {
     }, 0).toFixed(2) : '0.00';
 
     return (
-      <div>
-        <p data-testid="email-field">
-          Email:
+      <div className="header">
+        <img src={ logoTrybeWallet } alt="logo trybewallet" />
+        <p className="header--ammount-field">
+          <img src={ coins } alt="" />
+          <span>Despesa Total:</span>
           {' '}
-          { email }
-        </p>
-        <p>
-          {' '}
-          Despesa Total:
-          {' '}
-          <span data-testid="total-field">
-            { Total }
+          <div>
+            <span data-testid="total-field" className="header--ammount-value">
+              { Total }
 
-          </span>
+            </span>
+            {' '}
+            <span
+              data-testid="header-currency-field"
+              className="header--ammount-value"
+            >
+              BRL
+            </span>
+          </div>
+        </p>
+        <p data-testid="email-field" className="header--email-field">
+          <img src={ perfilLogo } alt="" />
           {' '}
-          <span data-testid="header-currency-field">BRL</span>
+          <span>{ email }</span>
         </p>
       </div>
     );

@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header--ammount-field {
+  align-items: center;
+  color: #003be5;
+  display: flex;
+  font-weight: 700;
+  justify-content: space-evenly;
+  width: 15rem;
+}
+
+.header--ammount-value {
+  font-weight: 400;
+}
+
+.header--email-field {
+  align-items: center;
+  color: #2fc18c;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header--email-field :nth-child( 2 ) {
+  margin-left: 10px;
+}
+

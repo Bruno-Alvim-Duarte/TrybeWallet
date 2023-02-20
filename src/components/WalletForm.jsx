@@ -22,6 +22,7 @@ class WalletForm extends Component {
               name="value"
               type="number"
               data-testid="value-input"
+              className="wallet-form--input"
               value={ value }
               onChange={ handleChange }
               min="0"
@@ -36,6 +37,7 @@ class WalletForm extends Component {
               data-testid="currency-input"
               value={ currency }
               onChange={ handleChange }
+              className="wallet-form--input"
             >
               {currencies.map((eachCurrency) => (
                 <option
@@ -56,6 +58,7 @@ class WalletForm extends Component {
               data-testid="method-input"
               value={ method }
               onChange={ handleChange }
+              className="wallet-form--input"
             >
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
@@ -72,6 +75,7 @@ class WalletForm extends Component {
               data-testid="description-input"
               value={ description }
               onChange={ handleChange }
+              className="wallet-form--input"
             />
           </label>
 
@@ -83,6 +87,7 @@ class WalletForm extends Component {
               data-testid="tag-input"
               value={ tag }
               onChange={ handleChange }
+              className="wallet-form--input"
             >
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
@@ -92,12 +97,14 @@ class WalletForm extends Component {
             </select>
           </label>
         </div>
-        <button
-          onClick={ editor ? editExpenseBtn : addExpense }
-        >
-          { editor ? 'Editar despesa' : 'Adicionar Despesa'}
+        <div className="wallet-form--btn">
+          <button
+            onClick={ editor ? editExpenseBtn : addExpense }
+          >
+            { editor ? 'Editar despesa' : 'Adicionar Despesa'}
 
-        </button>
+          </button>
+        </div>
       </div>
     );
   }

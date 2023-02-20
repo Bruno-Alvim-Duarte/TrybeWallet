@@ -77,10 +77,10 @@ class Wallet extends Component {
             editExpenseBtn={ this.editExpenseBtn }
             { ...this.state }
           />
-          <Table
-            editingExpenseChangeInputValues={ this.editingExpenseChangeInputValues }
-          />
         </div>
+        <Table
+          editingExpenseChangeInputValues={ this.editingExpenseChangeInputValues }
+        />
       </div>
     );
   }
