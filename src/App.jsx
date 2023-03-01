@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Wallet from './pages/Wallet';
 
 function App() {
+  document.title = 'TrybeWallet';
   return (
     <div>
       <Route exact path="/" component={ Login } />
