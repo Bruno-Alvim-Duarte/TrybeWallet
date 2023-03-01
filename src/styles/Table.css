@@ -1,45 +1,50 @@
-.table {
+.table-comp {
   background-color: #003be5;
   border-radius: 20px;
-  display: flex;
-  flex-direction: column;
   height: 40rem;
-  justify-content: center;
+  max-height: 40rem;
+  overflow-y: auto;
   position: absolute;
-  top: 10rem;
+  top: 20rem;
   width: 100rem;
   z-index: 0;
 }
 
-.table--th {
+table th {
   border-left: 1px solid white;
+}
+
+table thead :nth-child( 1 ) {
+  border: none;
 }
 
 table {
   border-collapse: collapse;
+  margin-top: 50px;
+  width: 100%;
 }
 
 td {
   border-top: 1px solid white;
 }
 
-.table th , .table td {
+table th , table td {
   color: white;
   margin: 0;
   padding: 10px 19px;
 }
 
-.table td {
+table td {
   color: #2fc18b;
   margin-left: 10px;
 }
 
-.table button {
+table button {
   background: #003be5;
   border: none;
 }
 
-.table button:hover {
+table button:hover {
   cursor: pointer;
   scale: 1.1;
 }
@@ -47,4 +52,26 @@ td {
 .table--change-button-image {
   height: 30px;
   width: 30px;
+}
+
+.table-comp::-webkit-scrollbar {
+  width: 12px;   /* width of the entire scrollbar */
+}
+
+.table-comp::-webkit-scrollbar-track {
+  background: blue;        /* color of the tracking area */
+}
+
+.table-comp::-webkit-scrollbar-thumb {
+  background-color: #2fc18b;    /* color of the scroll thumb */
+  border: 3px solid #2fc18b;  /* creates padding around scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+}
+
+@media screen and ( max-width : 1600px ) {
+
+  .table-comp {
+    height: 30rem;
+    width: 80rem;
+  }
 }

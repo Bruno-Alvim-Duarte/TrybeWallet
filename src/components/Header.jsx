@@ -41,7 +41,7 @@ class Header extends Component {
         <p data-testid="email-field" className="header--email-field">
           <img src={ perfilLogo } alt="" />
           {' '}
-          <span>{ email }</span>
+          <span>{ email || localStorage.getItem('email') }</span>
         </p>
       </div>
     );

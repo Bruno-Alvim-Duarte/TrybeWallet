@@ -30,6 +30,7 @@ class Login extends React.Component {
     const { history, dispatch } = this.props;
     const { email } = this.state;
     dispatch(saveEmail(email));
+    localStorage.setItem('email', email);
 
     history.push('/carteira');
   };
@@ -56,7 +57,7 @@ class Login extends React.Component {
           </div>
           <div className="loginPage--txt_field">
             <input
-              type="text"
+              type="password"
               name="password"
               spellCheck="false"
               required

@@ -10,19 +10,19 @@ class Table extends Component {
   render() {
     const { expenses, dispatch, editingExpenseChangeInputValues } = this.props;
     return (
-      <div className="table">
+      <div className="table-comp">
         <table>
           <thead>
             <tr>
               <th>Descrição</th>
-              <th className="table--th">Tag</th>
-              <th className="table--th">Método de pagamento</th>
-              <th className="table--th">Valor</th>
-              <th className="table--th">Moeda</th>
-              <th className="table--th">Câmbio utilizado</th>
-              <th className="table--th">Valor convertido</th>
-              <th className="table--th">Moeda de conversão</th>
-              <th className="table--th">Editar/Excluir</th>
+              <th>Tag</th>
+              <th>Método de pagamento</th>
+              <th>Valor</th>
+              <th>Moeda</th>
+              <th>Câmbio utilizado</th>
+              <th>Valor convertido</th>
+              <th>Moeda de conversão</th>
+              <th>Editar/Excluir</th>
             </tr>
           </thead>
           <tbody>
@@ -35,19 +35,25 @@ class Table extends Component {
                 <td>{expense.currency}</td>
                 <td>
                   {Number(Object.entries(expense.exchangeRates)
-                    .find((eachCurrency) => eachCurrency[1].code === expense.currency)[1]
+                    .find(
+                      (eachCurrency) => eachCurrency[1].code === expense.currency,
+                    )[1]
                     .ask).toFixed(2)}
 
                 </td>
                 <td>
                   {(Number(expense.value) * Number(Object.entries(expense.exchangeRates)
-                    .find((eachCurrency) => eachCurrency[1].code === expense.currency)[1]
+                    .find(
+                      (eachCurrency) => eachCurrency[1].code === expense.currency,
+                    )[1]
                     .ask)).toFixed(2)}
 
                 </td>
                 <td>
                   {Object.entries(expense.exchangeRates)
-                    .find((eachCurrency) => eachCurrency[1].code === expense.currency)[1]
+                    .find(
+                      (eachCurrency) => eachCurrency[1].code === expense.currency,
+                    )[1]
                     .name}
 
                 </td>
