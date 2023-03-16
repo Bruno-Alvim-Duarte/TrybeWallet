@@ -9,7 +9,7 @@ https://user-images.githubusercontent.com/14060102/222146941-c64c88d7-5a69-4307-
 
 ## Descrição 📩
  
- Neste projeto você desenvolvi uma carteira de controle de gastos com conversor de moedas 💸🪙, ao utilizar essa aplicação um usuário é capaz de:
+ Neste projeto eu desenvolvi uma carteira de controle de gastos com conversor de moedas 💸🪙, ao utilizar essa aplicação um usuário é capaz de:
 
   - Adicionar, remover e editar um gasto;
   - Visualizar uma tabelas com seus gastos;
