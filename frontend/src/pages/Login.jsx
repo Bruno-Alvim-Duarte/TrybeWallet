@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { saveEmail } from '../redux/actions';
 import '../styles/Login.css';
+import { MY_API_URL } from './Wallet';
 
 class Login extends React.Component {
   state = {
@@ -31,6 +32,22 @@ class Login extends React.Component {
     const { email } = this.state;
     dispatch(saveEmail(email));
     localStorage.setItem('email', email);
+
+    const configs = {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        mode: 'no-cors',
+      },
+    };
+
+    fetch(`${MY_API_URL}/user`, configs)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
 
     history.push('/carteira');
   };

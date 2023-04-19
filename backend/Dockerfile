@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY package*.json ./
 
+COPY . .
+
 COPY ./src/db/createDB.sql ./
 
 RUN npm install

@@ -10,7 +10,7 @@ services:
     ports:
       - 3001:3001
     environment:
-      MYSQL_HOSTNAME: db
+      MYSQL_HOSTNAME: trybewallet_db
       MYSQL_USER: root
       MYSQL_PASSWORD: password
       MYSQL_DATABASE_NAME: TrybeWalletDB
@@ -20,7 +20,8 @@ services:
     depends_on:
       - db
 
-  db: 
+  db:
+    container_name: trybewallet_db
     image: mysql:8.0.32
     restart: always
     ports:

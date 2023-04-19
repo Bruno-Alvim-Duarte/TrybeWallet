@@ -6,6 +6,7 @@ export const UPDATE_TOTAL_EXPENSE = 'UPDATE_TOTAL_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const EDIT_EXPENSE_REQUEST = 'EDIT_EXPENSE_REQUEST';
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
+export const SAVE_EXPENSES_FROM_DB = 'SAVE_EXPENSES_FROM_DB';
 
 export const saveEmail = (payload) => ({
   type: SAVE_EMAIL,
@@ -36,6 +37,14 @@ export const editExpense = (payload) => ({
   type: EDIT_EXPENSE,
   payload,
 });
+
+export const saveExpensesFromDB = (payload) => {
+  console.log(payload);
+  return ({
+    type: SAVE_EXPENSES_FROM_DB,
+    payload,
+  });
+};
 
 export const fetchCoins = () => (dispatch) => {
   fetch('https://economia.awesomeapi.com.br/json/all')

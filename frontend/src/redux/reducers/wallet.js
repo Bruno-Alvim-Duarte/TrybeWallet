@@ -1,7 +1,8 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 import { DELETE_EXPENSE,
   EDIT_EXPENSE,
-  EDIT_EXPENSE_REQUEST, SAVE_COINS, SAVE_EXPENSE } from '../actions';
+  EDIT_EXPENSE_REQUEST, SAVE_COINS, SAVE_EXPENSE,
+  SAVE_EXPENSES_FROM_DB } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [], // array de string
@@ -40,6 +41,11 @@ const walletReducer = (state = INITIAL_STATE, action) => {
       expenses: state.expenses.map(
         (expense) => (expense.id === action.payload.id ? action.payload : expense),
       ),
+    };
+  case SAVE_EXPENSES_FROM_DB:
+    return {
+      ...state,
+      expenses: action.payload,
     };
 
   default:
