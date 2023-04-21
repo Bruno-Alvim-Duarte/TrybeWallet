@@ -4,7 +4,7 @@ USE TrybeWalletDB;
 CREATE TABLE users (
 `user_id` INT PRIMARY KEY AUTO_INCREMENT,
 email VARCHAR(255) NOT NULL UNIQUE,
-`name` VARCHAR(100) NOT NULL
+`name` VARCHAR(100)
 );
 
 CREATE TABLE currencies (
@@ -30,7 +30,8 @@ tag_id INT,
 currency_id INT,
 payment_method_id INT,
 `user_id` INT,
-exchange_rates DECIMAL(4,2) NOT NULL,
+exchange_rate DECIMAL(4,2) NOT NULL,
+currency_name VARCHAR(150) NOT NULL,
 FOREIGN KEY (tag_id) REFERENCES tags (tag_id),
 FOREIGN KEY (currency_id) REFERENCES currencies (currency_id),
 FOREIGN KEY (payment_method_id) REFERENCES payment_method (payment_method_id),
