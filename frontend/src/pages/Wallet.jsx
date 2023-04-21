@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import WalletForm from '../components/WalletForm';
-import { editExpense, editExpenseRequest, saveExpense,
+import { editExpense, editExpenseRequest,
   saveExpensesFromDB } from '../redux/actions';
 import '../styles/Wallet.css';
 
@@ -26,6 +26,10 @@ class Wallet extends Component {
   };
 
   componentDidMount() {
+    this.getExpensesFromDB();
+  }
+
+  getExpensesFromDB = () => {
     const { dispatch } = this.props;
     fetch('http://localhost:3001/carteira/1')
       .then((response) => response.json())
@@ -33,7 +37,7 @@ class Wallet extends Component {
         console.log(data);
         dispatch(saveExpensesFromDB(data));
       });
-  }
+  };
 
   handleChange = ({ target }) => {
     const { name, value } = target;
@@ -43,23 +47,17 @@ class Wallet extends Component {
   };
 
   addExpense = async () => {
-    const { dispatch } = this.props;
     const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((data) => data);
     delete exchangeRates.USDT;
 
-    const dispatching = async () => {
-      await dispatch(saveExpense(this.state));
-      this.setState({ ...this.INITIAL_STATE });
-    };
-
-    const { expenses } = this.props;
-    this.setState({ id: expenses.length, exchangeRates }, dispatching);
-
     const { value, description, currency, method, tag } = this.state;
     const { email } = this.props;
-    console.log(email);
+    const exchangeRateCurrencyWanted = Object.entries(exchangeRates)
+      .find((curr) => curr[1].code === currency)[1];
+    const exchangeRateNumber = Number(exchangeRateCurrencyWanted.ask);
+    const currencyName = exchangeRateCurrencyWanted.name;
     const configs = {
       method: 'POST',
       body: JSON.stringify({
@@ -68,8 +66,9 @@ class Wallet extends Component {
         currency,
         method,
         tag,
-        usuario: email,
-        exchangeRates,
+        user: email,
+        exchangeRate: exchangeRateNumber,
+        currencyName,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -77,10 +76,10 @@ class Wallet extends Component {
         mode: 'no-cors',
       },
     };
-    console.log(this.state);
-    fetch(`${MY_API_URL}/carteira`, configs)
+    await fetch(`${MY_API_URL}/carteira`, configs)
       .then((response) => response.json())
       .then((data) => console.log(data));
+    this.getExpensesFromDB();
   };
 
   editExpenseBtn = async () => {

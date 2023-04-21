@@ -53,7 +53,7 @@ class Login extends React.Component {
   };
 
   render() {
-    const { isBtnDisabled } = this.state;
+    const { isBtnDisabled, email } = this.state;
     return (
       <div className="loginPage">
         <div className="main--login-page">
@@ -68,6 +68,7 @@ class Login extends React.Component {
               required
               className="loginPage--inputs"
               onChange={ this.handleChange }
+              value={ email }
             />
             <p>Email</p>
             <span />

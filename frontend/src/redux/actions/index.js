@@ -38,13 +38,10 @@ export const editExpense = (payload) => ({
   payload,
 });
 
-export const saveExpensesFromDB = (payload) => {
-  console.log(payload);
-  return ({
-    type: SAVE_EXPENSES_FROM_DB,
-    payload,
-  });
-};
+export const saveExpensesFromDB = (payload) => ({
+  type: SAVE_EXPENSES_FROM_DB,
+  payload,
+});
 
 export const fetchCoins = () => (dispatch) => {
   fetch('https://economia.awesomeapi.com.br/json/all')

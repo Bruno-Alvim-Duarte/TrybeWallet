@@ -34,7 +34,7 @@ class Table extends Component {
                 <td>{Number(expense.value).toFixed(2)}</td>
                 <td>{expense.currency}</td>
                 <td>
-                  {Number(Object.entries(expense.exchangeRates)
+                  {expense.exchangeRate || Number(Object.entries(expense.exchangeRates)
                     .find(
                       (eachCurrency) => eachCurrency[1].code === expense.currency,
                     )[1]
@@ -42,7 +42,8 @@ class Table extends Component {
 
                 </td>
                 <td>
-                  {(Number(expense.value) * Number(Object.entries(expense.exchangeRates)
+                  { (+expense.exchangeRate * +expense.value).toFixed(2)
+                  || (Number(expense.value) * Number(Object.entries(expense.exchangeRates)
                     .find(
                       (eachCurrency) => eachCurrency[1].code === expense.currency,
                     )[1]
@@ -50,7 +51,7 @@ class Table extends Component {
 
                 </td>
                 <td>
-                  {Object.entries(expense.exchangeRates)
+                  { expense.currencyName || Object.entries(expense.exchangeRates)
                     .find(
                       (eachCurrency) => eachCurrency[1].code === expense.currency,
                     )[1]

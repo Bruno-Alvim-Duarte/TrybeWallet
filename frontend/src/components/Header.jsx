@@ -9,14 +9,25 @@ import perfilLogo from '../imgs/perfilLogo.svg';
 class Header extends Component {
   render() {
     const { email, expenses } = this.props;
-    const Total = expenses.length !== 0 ? expenses.reduce((acc, curr) => {
-      const entrieCurrency = Object.entries(curr.exchangeRates)
-        .find((eachCurrency) => eachCurrency[0] === curr.currency);
-      const ask = Number(entrieCurrency[1].ask);
+    let Total;
+    console.log('expenses:', expenses);
+    console.log('condição:', expenses.every((expense) => expense.currencyName));
+    if (expenses.length !== 0
+      && expenses.every((expense) => expense.currencyName)) {
+      console.log(expenses);
+      Total = expenses
+        .reduce((acc, curr) => acc + Number(curr.value) * Number(curr.exchangeRate), 0)
+        .toFixed(2);
+      console.log(Total);
+    } else {
+      Total = expenses.length !== 0 ? expenses.reduce((acc, curr) => {
+        const entrieCurrency = Object.entries(curr.exchangeRates)
+          .find((eachCurrency) => eachCurrency[0] === curr.currency);
+        const ask = Number(entrieCurrency[1].ask);
 
-      return acc + Number(curr.value) * ask;
-    }, 0).toFixed(2) : '0.00';
-
+        return acc + Number(curr.value) * ask;
+      }, 0).toFixed(2) : '0.00';
+    }
     return (
       <div className="header">
         <img src={ logoTrybeWallet } alt="logo trybewallet" />
