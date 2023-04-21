@@ -47,10 +47,19 @@ class Wallet extends Component {
   };
 
   addExpense = async () => {
+    // const { dispatch } = this.props;
     const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((data) => data);
     delete exchangeRates.USDT;
+
+    // const dispatching = async () => {
+    //   await dispatch(saveExpense(this.state));
+    //   this.setState({ ...this.INITIAL_STATE });
+    // };
+
+    // // const { expenses } = this.props;
+    // // this.setState({ id: expenses.length, exchangeRates }, dispatching);
 
     const { value, description, currency, method, tag } = this.state;
     const { email } = this.props;
