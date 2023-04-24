@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { saveEmail } from '../redux/actions';
-import '../styles/Login.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { MY_API_URL } from './Wallet';
 
-class Login extends React.Component {
+export default class SignUp extends Component {
   state = {
     isBtnDisabled: true,
     email: '',
@@ -28,11 +26,8 @@ class Login extends React.Component {
     }, this.validation);
   };
 
-  onClickLogin = () => {
-    const { history, dispatch } = this.props;
+  onClickSignUp = () => {
     const { email, password } = this.state;
-    dispatch(saveEmail(email));
-    localStorage.setItem('email', email);
     const configs = {
       method: 'POST',
       body: JSON.stringify({
@@ -46,24 +41,20 @@ class Login extends React.Component {
       },
     };
 
-    fetch(`${MY_API_URL}/user/signin?email=${email}`, configs)
+    fetch(`${MY_API_URL}/user`, configs)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        if (data.message === 'Login feito com sucesso') {
-          history.push('/carteira');
+        if (data.message === 'Este email ja está cadastrado') {
+          return toast.error('Este email ja está cadastrado!');
         }
-
-        if (data.message === 'Erro: Email ou senha incorreta!') {
-          return toast.error('Email ou senha incorretos!');
-        }
-
-        return toast.error(data.message);
+        toast.success('Email cadastrado');
+        const { history } = this.props;
+        history.push('/');
       });
   };
 
   render() {
-    const { isBtnDisabled, email } = this.state;
+    const { isBtnDisabled, email, password } = this.state;
     return (
       <div className="loginPage">
         <div className="main--login-page">
@@ -91,6 +82,7 @@ class Login extends React.Component {
               required
               data-testid="password-input"
               onChange={ this.handleChange }
+              value={ password }
             />
             <p>Senha</p>
             <span />
@@ -98,9 +90,9 @@ class Login extends React.Component {
           <button
             className="loginPage--Btn"
             disabled={ isBtnDisabled }
-            onClick={ this.onClickLogin }
+            onClick={ this.onClickSignUp }
           >
-            Entrar
+            Registrar-se
 
           </button>
         </div>
@@ -110,11 +102,8 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
+SignUp.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
-  dispatch: PropTypes.func.isRequired,
 };
-
-export default connect()(Login);

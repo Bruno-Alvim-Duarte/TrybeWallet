@@ -22,8 +22,6 @@ const findExpensesById = async (id) => {
       [tag_id]
     );
 
-    console.log(tag);
-
     return {
       value,
       description,
@@ -37,7 +35,6 @@ const findExpensesById = async (id) => {
   });
   
   const objectsToReturn =  await Promise.all(promiseObjectsToReturn);
-  console.log(objectsToReturn);
   
   return objectsToReturn;
 }
@@ -45,17 +42,11 @@ const findExpensesById = async (id) => {
 const saveExpense = async (despesa) => {
   const { value, description, tag, currency, method, user, exchangeRate, currencyName } = despesa;
 
-  console.log(value);
-  console.log(description);
 
   const [[tagId]] = await connection.execute('SELECT tag_id FROM tags WHERE name = ?', [tag]);
   const [[moedaId]] = await connection.execute('SELECT currency_id FROM currencies WHERE initials = ?', [currency]);
   const [[metodoId]] = await connection.execute('SELECT payment_method_id FROM payment_method WHERE name = ?', [method]);
   const [[usuarioId]] = await connection.execute('SELECT user_id FROM users WHERE email = ?', [user]);
-  console.log(tagId);
-  console.log(moedaId);
-  console.log(metodoId);
-  console.log(usuarioId);
 
 
 

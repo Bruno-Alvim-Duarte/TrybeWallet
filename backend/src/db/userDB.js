@@ -11,7 +11,7 @@ const findUserByEmail = async (email) => {
 }
 
 const saveNewUser = async (user) => {
-  const [result] = await connection.execute('INSERT INTO useRS (email, name) VALUES (?, ?)', [user.email, user.name]);
+  const [result] = await connection.execute('INSERT INTO users (email, password) VALUES (?, ?)', [user.email, user.password]);
   return result;
 }
 

@@ -12,19 +12,14 @@ const validateEmail = async (req, _res, next) => {
     return next({ statusCode: 400, message: "O campo 'email' deve ter um email válido"});
   }
 
-  const user = await findUserByEmail(email);
-  if (user) {
-    return next({ statusCode: 400, message: "Este email ja está cadastrado" });
-  }
-
   next();
 };
 
-const validateName = (req, _res, next) => {
-  const {nome} = req.body;
+const validatePassword = (req, _res, next) => {
+  const {password} = req.body;
 
-  if (nome === undefined) {
-    return next({ statusCode: 400, message: "O campo 'nome' é obrigatório"});
+  if (password === undefined) {
+    return next({ statusCode: 400, message: "O campo 'password' é obrigatório"});
   }
 
   next();
@@ -32,5 +27,5 @@ const validateName = (req, _res, next) => {
 
 module.exports = {
   validateEmail,
-  validateName,
+  validatePassword,
 };

@@ -34,7 +34,6 @@ class Wallet extends Component {
     fetch('http://localhost:3001/carteira/1')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         dispatch(saveExpensesFromDB(data));
       });
   };
