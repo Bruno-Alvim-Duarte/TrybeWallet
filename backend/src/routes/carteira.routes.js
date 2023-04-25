@@ -2,8 +2,20 @@ const express = require('express');
 const { findExpensesById, saveExpense } = require('../db/carteiraDB');
 const { validateValue, validateDescription, validateMethod,
   validateCurrency, validateTag } = require('../middlewares/validateDespesa');
+const { findUserByEmail } = require('../db/userDB');
 
 const router = express.Router();
+
+router.get('/searchByEmail', async (req, res) => {
+  try {
+    const { email } = req.query;
+    const user = await findUserByEmail(email);
+    const expenses = await findExpensesById(user.user_id);
+    return res.status(200).json(expenses);
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+});
 
 router.get('/:id' , async (req, res) => {
   try {
@@ -14,6 +26,7 @@ router.get('/:id' , async (req, res) => {
     return res.status(500).json({ message: err.message });
   }
 });
+
 
 router.post('/', validateValue, validateDescription, validateMethod,
  validateCurrency, validateTag, async (req, res) => {

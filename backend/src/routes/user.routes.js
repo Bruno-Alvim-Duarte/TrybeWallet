@@ -12,9 +12,6 @@ router.post('/signin', validateEmail, validatePassword, async (req, res) => {
     const { email } = req.query;
     
     const user = await findUserByEmail(email);
-    console.log(user);
-    console.log(password);
-    console.log(await bcryptjs.compare(password, user.password));
     if (!user) {
       return res.status(400).json({ message: 'Erro: Email ou senha incorreta!'});
     }

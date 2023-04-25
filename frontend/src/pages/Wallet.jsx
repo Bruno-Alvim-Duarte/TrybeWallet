@@ -30,8 +30,8 @@ class Wallet extends Component {
   }
 
   getExpensesFromDB = () => {
-    const { dispatch } = this.props;
-    fetch('http://localhost:3001/carteira/1')
+    const { dispatch, email } = this.props;
+    fetch(`http://localhost:3001/carteira/searchByEmail?email=${email}`)
       .then((response) => response.json())
       .then((data) => {
         dispatch(saveExpensesFromDB(data));

@@ -49,7 +49,6 @@ class Login extends React.Component {
     fetch(`${MY_API_URL}/user/signin?email=${email}`, configs)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.message === 'Login feito com sucesso') {
           history.push('/carteira');
         }
