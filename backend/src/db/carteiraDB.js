@@ -3,7 +3,7 @@ const findExpensesById = async (id) => {
   const [result] = await connection.execute('SELECT * FROM expenses WHERE user_id = ?', [id]);
   const promiseObjectsToReturn = result.map(async (expense) => {
     const { value, description, currency_id, exchange_rate,
-       payment_method_id, tag_id, currency_name } = expense;
+       payment_method_id, tag_id, currency_name, expense_id } = expense;
     
     const [[currency]] = await connection.execute(
       'SELECT initials FROM currencies WHERE currency_id = ?',
@@ -23,6 +23,7 @@ const findExpensesById = async (id) => {
     );
 
     return {
+      id: expense_id,
       value,
       description,
       currency: currency.initials,
@@ -56,7 +57,20 @@ const saveExpense = async (despesa) => {
   return result;
 };
 
+const deleteExpense = async (id) => {
+  const [result] = await connection.execute(`DELETE FROM expenses WHERE expense_id = ?`, [id]);
+  console.log(result);
+  return result.affectedRows;
+};
+
+const findByExpenseId = async (id) => {
+  const [[result]] = await connection.execute(`SELECT * FROM expenses WHERE expense_id = ?`, [id]);
+  return result;
+}
+
 module.exports = {
   findExpensesById,
-  saveExpense
+  saveExpense,
+  deleteExpense,
+  findByExpenseId
 }

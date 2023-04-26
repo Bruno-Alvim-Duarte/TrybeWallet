@@ -125,6 +125,7 @@ class Wallet extends Component {
         </div>
         <Table
           editingExpenseChangeInputValues={ this.editingExpenseChangeInputValues }
+          getExpensesFromDB={ this.getExpensesFromDB }
         />
       </div>
     );

@@ -1,12 +1,28 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deleteExpense, editExpenseRequest } from '../redux/actions';
+import { editExpenseRequest } from '../redux/actions';
 import '../styles/Table.css';
 import editBtnLogo from '../imgs/editBtnLogo.svg';
 import trashBtnLogo from '../imgs/trashBtnLogo.svg';
 
 class Table extends Component {
+  deleteExpenseBtn = async (id) => {
+    const { getExpensesFromDB } = this.props;
+    const configs = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        mode: 'no-cors',
+      },
+    };
+
+    await fetch(`http://localhost:3001/carteira/${id}`, configs);
+
+    await getExpensesFromDB();
+  };
+
   render() {
     const { expenses, dispatch, editingExpenseChangeInputValues } = this.props;
     return (
@@ -75,7 +91,7 @@ class Table extends Component {
 
                   <button
                     data-testid="delete-btn"
-                    onClick={ () => dispatch(deleteExpense(expense.id)) }
+                    onClick={ () => this.deleteExpenseBtn(expense.id) }
                   >
                     <img
                       src={ trashBtnLogo }
@@ -98,6 +114,7 @@ Table.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   dispatch: PropTypes.func.isRequired,
   editingExpenseChangeInputValues: PropTypes.func.isRequired,
+  getExpensesFromDB: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

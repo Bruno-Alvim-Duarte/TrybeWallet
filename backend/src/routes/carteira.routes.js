@@ -1,5 +1,5 @@
 const express = require('express');
-const { findExpensesById, saveExpense } = require('../db/carteiraDB');
+const { findExpensesById, saveExpense, deleteExpense, findByExpenseId } = require('../db/carteiraDB');
 const { validateValue, validateDescription, validateMethod,
   validateCurrency, validateTag } = require('../middlewares/validateDespesa');
 const { findUserByEmail } = require('../db/userDB');
@@ -24,6 +24,19 @@ router.get('/:id' , async (req, res) => {
     return res.status(200).json(expenses);
   } catch (err) {
     return res.status(500).json({ message: err.message });
+  }
+});
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const expense = await findByExpenseId(+id);
+    if (!expense) return res.status(404).json({ message: 'despesa não encontrada'});
+    await deleteExpense(+id);
+
+    return res.status(204).end();
+  } catch (err) {
+    return res.status(500).json({ message: err.message})
   }
 });
 

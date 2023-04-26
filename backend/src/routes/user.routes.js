@@ -31,7 +31,6 @@ router.post('/', validateEmail, validatePassword, async (req, res) => {
   try {
     const { email, password } = req.body;
     const userCheck = await findUserByEmail(email);
-    console.log(userCheck);
     if (userCheck) {
       return res.status(400).json({ message: 'Este email ja está cadastrado'});
     }
