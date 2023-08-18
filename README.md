@@ -68,6 +68,9 @@ Neste projeto, pude trabalhar novas habildades aprendidas recentemente como:
 - Conectar Redux aos componentes React
 
 - Criar `actions` assíncronas na sua aplicação React que faz uso de Redux.
+
+- Criar uma `API Restful`
+
 </details>
 
 <details>
@@ -83,13 +86,14 @@ Neste projeto, pude trabalhar novas habildades aprendidas recentemente como:
   
   * Redux
   * React
+  * Express
+  * Node.js
   * React Testing Library
   * Figma	
   * CSS
   * HTML
   * JavaScript
   * LocalStorage
-  * Linter
   
 </details>
 
