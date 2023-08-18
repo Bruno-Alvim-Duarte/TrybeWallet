@@ -55,11 +55,12 @@ export default class SignUp extends Component {
 
   render() {
     const { isBtnDisabled, email, password } = this.state;
+    const { history } = this.props;
     return (
       <div className="loginPage">
         <div className="main--login-page">
           <div className="loginPage--logo" />
-
+          <h2 className="loginPage--header">Criar conta</h2>
           <div className="loginPage--txt_field">
             <input
               type="text"
@@ -94,6 +95,12 @@ export default class SignUp extends Component {
           >
             Registrar-se
 
+          </button>
+          <button
+            className="loginPage--Btn"
+            onClick={ () => history.push('/signin') }
+          >
+            Já tenho conta
           </button>
         </div>
         <ToastContainer />

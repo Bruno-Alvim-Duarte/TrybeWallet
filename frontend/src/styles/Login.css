@@ -85,7 +85,14 @@ body {
   border-radius: 7px;
   cursor: not-allowed;
   font-size: 16px;
+  margin-bottom: 15px;
   padding: 5px 0;
+}
+
+.loginPage--header {
+  border: 3px solid #003be5;
+  color: #003be5;
+  padding: 5px 10px;
 }
 
 .loginPage--Btn:disabled {

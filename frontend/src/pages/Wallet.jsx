@@ -1,14 +1,20 @@
+/* eslint-disable react-func/max-lines-per-function */
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import WalletForm from '../components/WalletForm';
-import { editExpense, editExpenseRequest,
-  saveExpensesFromDB } from '../redux/actions';
+import { saveExpensesFromDB } from '../redux/actions';
 import '../styles/Wallet.css';
 
 export const MY_API_URL = 'http://localhost:3001';
+
+const headers = {
+  'Content-Type': 'application/json',
+  Accept: 'application/json',
+  mode: 'no-cors',
+};
 
 class Wallet extends Component {
   INITIAL_STATE = {
@@ -34,6 +40,7 @@ class Wallet extends Component {
     fetch(`http://localhost:3001/carteira/searchByEmail?email=${email}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         dispatch(saveExpensesFromDB(data));
       });
   };
@@ -46,7 +53,6 @@ class Wallet extends Component {
   };
 
   addExpense = async () => {
-    // const { dispatch } = this.props;
     const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((data) => data);
@@ -78,11 +84,7 @@ class Wallet extends Component {
         exchangeRate: exchangeRateNumber,
         currencyName,
       }),
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        mode: 'no-cors',
-      },
+      headers,
     };
     await fetch(`${MY_API_URL}/carteira`, configs)
       .then((response) => response.json())
@@ -91,20 +93,49 @@ class Wallet extends Component {
   };
 
   editExpenseBtn = async () => {
-    const { dispatch, idToEdit } = this.props;
-
+    const { idToEdit } = this.props;
     const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((data) => data);
     delete exchangeRates.USDT;
 
-    const dispatching = () => {
-      dispatch(editExpenseRequest({ editor: false, id: 0 }));
-      dispatch(editExpense(this.state));
-      this.setState({ ...this.INITIAL_STATE });
+    const { value, description, currency, method, tag } = this.state;
+    const { email } = this.props;
+    const exchangeRateCurrencyWanted = Object.entries(exchangeRates)
+      .find((curr) => curr[1].code === currency)[1];
+    const exchangeRateNumber = Number(exchangeRateCurrencyWanted.ask);
+    const currencyName = exchangeRateCurrencyWanted.name;
+    const configs = {
+      method: 'PUT',
+      body: JSON.stringify({
+        value,
+        description,
+        currency,
+        method,
+        tag,
+        user: email,
+        exchangeRate: exchangeRateNumber,
+        currencyName,
+      }),
+      headers,
     };
+    await fetch(`${MY_API_URL}/carteira/${idToEdit}`, configs)
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+    this.getExpensesFromDB();
+    this.setState({ ...this.INITIAL_STATE });
 
-    this.setState({ id: idToEdit, exchangeRates }, dispatching);
+    // const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
+    //   .then((response) => response.json())
+    //   .then((data) => data);
+    // delete exchangeRates.USDT;
+
+    // const dispatching = () => {
+    //   dispatch(editExpenseRequest({ editor: false, id: 0 }));
+    //   dispatch(editExpense(this.state));
+    //   this.setState({ ...this.INITIAL_STATE });
+    // };
+    // this.setState({ id: idToEdit, exchangeRates }, dispatching);
   };
 
   editingExpenseChangeInputValues = (expense) => {

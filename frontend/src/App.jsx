@@ -8,9 +8,9 @@ function App() {
   document.title = 'TrybeWallet';
   return (
     <div>
-      <Route exact path="/" component={ Login } />
+      <Route exact path="/" component={ SignUp } />
       <Route path="/carteira" component={ Wallet } />
-      <Route path="/signup" component={ SignUp } />
+      <Route path="/signin" component={ Login } />
     </div>
   );
 }

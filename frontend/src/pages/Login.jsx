@@ -63,11 +63,12 @@ class Login extends React.Component {
 
   render() {
     const { isBtnDisabled, email } = this.state;
+    const { history } = this.props;
     return (
       <div className="loginPage">
         <div className="main--login-page">
           <div className="loginPage--logo" />
-
+          <h2 className="loginPage--header">Login</h2>
           <div className="loginPage--txt_field">
             <input
               type="text"
@@ -101,6 +102,12 @@ class Login extends React.Component {
           >
             Entrar
 
+          </button>
+          <button
+            className="loginPage--Btn"
+            onClick={ () => history.push('/') }
+          >
+            Criar conta
           </button>
         </div>
         <ToastContainer />
