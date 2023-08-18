@@ -1,0 +1,22 @@
+{
+  "name": "trybewallet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "install:front": "cd frontend && npm install",
+    "install:back": "cd backend && npm install",
+    "install:apps": "npm run install:front && npm run install:back"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bruno-Alvim-Duarte/TrybeWallet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bruno-Alvim-Duarte/TrybeWallet/issues"
+  },
+  "homepage": "https://github.com/Bruno-Alvim-Duarte/TrybeWallet#readme"
+}
