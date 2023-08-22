@@ -7,12 +7,12 @@
   - Visualizar uma tabelas com seus gastos;
   - Visualizar o total de gastos convertidos para uma moeda de escolha;
   
-  Para mais informações sobre o projeto te convido a experimentar o site no seguinte link: <a href="https://trybe-wallet-mauve-two.vercel.app/">TrybeWallet</a>
+  Para mais informações sobre o projeto te convido a experimentar o site no seguinte link: <a href="https://trybe-wallet-mauve-two.vercel.app/">TrybeWallet</a> (aplicação sem back-end)
   
   
 ![logo Trybe Wallet](https://user-images.githubusercontent.com/14060102/222138240-a64faebb-8d42-46b9-aaea-1132d66f668b.png)
 
-## Como usar a aplicação
+## Como usar a aplicação (aplicação com back-end)
 
 <details>
   <summary><strong>Tutorial</strong></summary>
