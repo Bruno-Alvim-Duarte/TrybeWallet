@@ -11,7 +11,8 @@ class WalletForm extends Component {
   }
 
   render() {
-    const { currencies, editor, addExpense, editExpenseBtn,
+    const { currencies, editor,
+      addOrEditExpenseBtn,
       value, description, currency, method, tag, handleChange } = this.props;
     return (
       <div className="wallet-form">
@@ -99,7 +100,7 @@ class WalletForm extends Component {
         </div>
         <div className="wallet-form--btn">
           <button
-            onClick={ editor ? editExpenseBtn : addExpense }
+            onClick={ addOrEditExpenseBtn }
           >
             { editor ? 'Editar despesa' : 'Adicionar Despesa'}
 
@@ -114,8 +115,7 @@ WalletForm.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   dispatch: PropTypes.func.isRequired,
   editor: PropTypes.bool,
-  editExpenseBtn: PropTypes.func.isRequired,
-  addExpense: PropTypes.func.isRequired,
+  addOrEditExpenseBtn: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   currency: PropTypes.string.isRequired,

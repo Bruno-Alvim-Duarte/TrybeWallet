@@ -38,9 +38,8 @@ const walletReducer = (state = INITIAL_STATE, action) => {
   case EDIT_EXPENSE:
     return {
       ...state,
-      expenses: state.expenses.map(
-        (expense) => (expense.id === action.payload.id ? action.payload : expense),
-      ),
+      editor: INITIAL_STATE.editor,
+      idToEdit: INITIAL_STATE.idToEdit,
     };
   case SAVE_EXPENSES_FROM_DB:
     return {

@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import WalletForm from '../components/WalletForm';
-import { saveExpensesFromDB } from '../redux/actions';
+import { editExpense, saveExpensesFromDB } from '../redux/actions';
 import '../styles/Wallet.css';
 
 export const MY_API_URL = 'http://localhost:3001';
@@ -58,62 +58,38 @@ class Wallet extends Component {
     });
   };
 
-  addExpense = async () => {
+  getExchangeRateNumberAndName = async (currencyWanted) => {
     const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
       .then((response) => response.json())
       .then((data) => data);
     delete exchangeRates.USDT;
 
-    const { value, description, currency, method, tag } = this.state;
-    const token = Cookies.get('token');
-    const exchangeRateCurrencyWanted = Object.entries(exchangeRates)
-      .find((curr) => curr[1].code === currency)[1];
-    const exchangeRateNumber = Number(exchangeRateCurrencyWanted.ask);
+    const exchangeRateCurrencyWanted = exchangeRates[currencyWanted];
+    const exchangeRate = Number(exchangeRateCurrencyWanted.ask);
     const currencyName = exchangeRateCurrencyWanted.name;
-    const configs = {
-      method: 'POST',
-      body: JSON.stringify({
-        value,
-        description,
-        currency,
-        method,
-        tag,
-        exchangeRate: exchangeRateNumber,
-        currencyName,
-      }),
-      headers: {
-        ...headers,
-        Authorization: token,
-      },
+    return {
+      exchangeRate,
+      currencyName,
     };
-    await fetch(`${MY_API_URL}/carteira`, configs)
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-    this.getExpensesFromDB();
   };
 
-  editExpenseBtn = async () => {
-    const { idToEdit } = this.props;
-    const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
-      .then((response) => response.json())
-      .then((data) => data);
-    delete exchangeRates.USDT;
+  addOrEditExpenseBtn = async () => {
+    const { editor, idToEdit, dispatch } = this.props;
 
     const { value, description, currency, method, tag } = this.state;
+    const { exchangeRate,
+      currencyName } = await this.getExchangeRateNumberAndName(currency);
     const token = Cookies.get('token');
-    const exchangeRateCurrencyWanted = Object.entries(exchangeRates)
-      .find((curr) => curr[1].code === currency)[1];
-    const exchangeRateNumber = Number(exchangeRateCurrencyWanted.ask);
-    const currencyName = exchangeRateCurrencyWanted.name;
+
     const configs = {
-      method: 'PUT',
+      method: editor ? 'PUT' : 'POST',
       body: JSON.stringify({
         value,
         description,
         currency,
         method,
         tag,
-        exchangeRate: exchangeRateNumber,
+        exchangeRate,
         currencyName,
       }),
       headers: {
@@ -121,23 +97,16 @@ class Wallet extends Component {
         Authorization: token,
       },
     };
-    await fetch(`${MY_API_URL}/carteira/${idToEdit}`, configs)
+
+    await fetch(`${MY_API_URL}/carteira/${editor ? idToEdit : ''}`, configs)
       .then((response) => response.json())
       .then((data) => console.log(data));
     this.getExpensesFromDB();
     this.setState({ ...this.INITIAL_STATE });
 
-    // const exchangeRates = await fetch('https://economia.awesomeapi.com.br/json/all')
-    //   .then((response) => response.json())
-    //   .then((data) => data);
-    // delete exchangeRates.USDT;
-
-    // const dispatching = () => {
-    //   dispatch(editExpenseRequest({ editor: false, id: 0 }));
-    //   dispatch(editExpense(this.state));
-    //   this.setState({ ...this.INITIAL_STATE });
-    // };
-    // this.setState({ id: idToEdit, exchangeRates }, dispatching);
+    if (editor) {
+      dispatch(editExpense());
+    }
   };
 
   editingExpenseChangeInputValues = (expense) => {
@@ -153,6 +122,7 @@ class Wallet extends Component {
             handleChange={ this.handleChange }
             addExpense={ this.addExpense }
             editExpenseBtn={ this.editExpenseBtn }
+            addOrEditExpenseBtn={ this.addOrEditExpenseBtn }
             { ...this.state }
           />
         </div>
@@ -170,12 +140,14 @@ Wallet.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   idToEdit: PropTypes.number.isRequired,
   email: PropTypes.string.isRequired,
+  editor: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   expenses: state.wallet.expenses,
   idToEdit: state.wallet.idToEdit,
   email: state.user.email,
+  editor: state.wallet.editor,
 });
 
 export default connect(mapStateToProps)(Wallet);
