@@ -30,7 +30,7 @@ tag_id INT,
 currency_id INT,
 payment_method_id INT,
 `user_id` INT,
-exchange_rate DECIMAL(4,2) NOT NULL,
+exchange_rate DECIMAL(10,2) NOT NULL,
 currency_name VARCHAR(150) NOT NULL,
 FOREIGN KEY (tag_id) REFERENCES tags (tag_id),
 FOREIGN KEY (currency_id) REFERENCES currencies (currency_id),
@@ -40,7 +40,7 @@ FOREIGN KEY (`user_id`) REFERENCES users (`user_id`)
 
 INSERT INTO currencies (initials) 
 VALUES ('USD'), ('CAD'), ('GBP'), ('ARS'), ('BTC'), ('LTC'), ('EUR'), ('JPY'), ('CHF'), ('AUD'), ('CNY'),
-('ILS'), ('ETH'), ('XRP'), ('DODGE');
+('ILS'), ('ETH'), ('XRP'), ('DOGE');
 
 INSERT INTO payment_method (`name`)
 VALUES ('Dinheiro'), ('Cartao de credito'), ('Cartao de debito');
