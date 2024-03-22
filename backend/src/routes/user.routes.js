@@ -2,6 +2,7 @@ const express = require('express');
 const { findUserById, saveNewUser, findUserByEmail } = require('../db/userDB');
 const { validateEmail, validatePassword } = require('../middlewares/validateUser');
 const bcryptjs = require('bcryptjs');
+const { createToken } = require('../auth/jwtFunctions');
 
 const router = express.Router();
 
@@ -20,7 +21,8 @@ router.post('/signin', validateEmail, validatePassword, async (req, res) => {
       return res.status(400).json({ message: 'Erro: Email ou senha incorreta!'});
     }
 
-    return res.status(200).json({ message: 'Login feito com sucesso'});
+    const token = createToken({ email });
+    return res.status(200).json({ message: 'Login feito com sucesso', token});
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }

@@ -59,7 +59,6 @@ const saveExpense = async (despesa) => {
 
 const deleteExpense = async (id) => {
   const [result] = await connection.execute(`DELETE FROM expenses WHERE expense_id = ?`, [id]);
-  console.log(result);
   return result.affectedRows;
 };
 
@@ -74,12 +73,10 @@ const editExpenseById = async (id, despesa) => {
   const [[tagId]] = await connection.execute('SELECT tag_id FROM tags WHERE name = ?', [tag]);
   const [[moedaId]] = await connection.execute('SELECT currency_id FROM currencies WHERE initials = ?', [currency]);
   const [[metodoId]] = await connection.execute('SELECT payment_method_id FROM payment_method WHERE name = ?', [method]);
-  console.log(tagId, moedaId, metodoId)
   const [{ affectedRows }] = await connection.execute(`UPDATE expenses SET value = ?,
    description = ?, tag_id = ?, currency_id = ?, payment_method_id = ?,
    exchange_rate = ?, currency_name = ? WHERE expense_id = ?`,
    [value, description, tagId.tag_id, moedaId.currency_id, metodoId.payment_method_id, exchangeRate, currencyName, id]);
-   console.log(affectedRows);
    return affectedRows;
 };
 

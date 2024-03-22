@@ -3,13 +3,15 @@ const { findExpensesById, saveExpense, deleteExpense, findByExpenseId, editExpen
 const { validateValue, validateDescription, validateMethod,
   validateCurrency, validateTag } = require('../middlewares/validateDespesa');
 const { findUserByEmail } = require('../db/userDB');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
-router.get('/searchByEmail', async (req, res) => {
+router.get('/searchExpenses', async (req, res) => {
   try {
-    const { email } = req.query;
-    const user = await findUserByEmail(email);
+    const {authorization} = req.headers;
+    const jwtDecoded = jwt.decode(authorization);
+    const user = await findUserByEmail(jwtDecoded.email);
     const expenses = await findExpensesById(user.user_id);
     return res.status(200).json(expenses);
   } catch (err) {
@@ -45,6 +47,10 @@ router.post('/', validateValue, validateDescription, validateMethod,
  validateCurrency, validateTag, async (req, res) => {
   try {
     const expense = req.body;
+    const { authorization } = req.headers;
+    const jwtDecoded = jwt.decode(authorization);
+    const email = jwtDecoded.email;
+    expense.user = email
 
     const result = await saveExpense(expense);
     return res.status(200).json(result);
@@ -58,6 +64,11 @@ router.put('/:id', validateValue, validateDescription, validateMethod,
   try {
     const { id } = req.params;
     const expense = req.body;
+    const { authorization } = req.headers;
+    const jwtDecoded = jwt.decode(authorization);
+    const email = jwtDecoded.email;
+    expense.user = email
+
     const expenseExist = await findByExpenseId(+id);
     if (!expenseExist) return res.status(404).json({ message: 'despesa não encontrada'});
     const result = await editExpenseById(+id, expense);

@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import Cookies from 'js-cookie';
 import { saveEmail } from '../redux/actions';
 import '../styles/Login.css';
 import { MY_API_URL } from './Wallet';
@@ -32,7 +33,7 @@ class Login extends React.Component {
     const { history, dispatch } = this.props;
     const { email, password } = this.state;
     dispatch(saveEmail(email));
-    localStorage.setItem('email', email);
+    // localStorage.setItem('email', email);
     const configs = {
       method: 'POST',
       body: JSON.stringify({
@@ -50,6 +51,7 @@ class Login extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         if (data.message === 'Login feito com sucesso') {
+          Cookies.set('token', data.token);
           history.push('/carteira');
         }
 

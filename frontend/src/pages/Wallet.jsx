@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Cookies from 'js-cookie';
 import Header from '../components/Header';
 import Table from '../components/Table';
 import WalletForm from '../components/WalletForm';
@@ -36,8 +37,13 @@ class Wallet extends Component {
   }
 
   getExpensesFromDB = () => {
-    const { dispatch, email } = this.props;
-    fetch(`http://localhost:3001/carteira/searchByEmail?email=${email}`)
+    const { dispatch } = this.props;
+    const token = Cookies.get('token');
+    fetch('http://localhost:3001/carteira/searchExpenses', {
+      headers: {
+        Authorization: token,
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -58,16 +64,8 @@ class Wallet extends Component {
       .then((data) => data);
     delete exchangeRates.USDT;
 
-    // const dispatching = async () => {
-    //   await dispatch(saveExpense(this.state));
-    //   this.setState({ ...this.INITIAL_STATE });
-    // };
-
-    // // const { expenses } = this.props;
-    // // this.setState({ id: expenses.length, exchangeRates }, dispatching);
-
     const { value, description, currency, method, tag } = this.state;
-    const { email } = this.props;
+    const token = Cookies.get('token');
     const exchangeRateCurrencyWanted = Object.entries(exchangeRates)
       .find((curr) => curr[1].code === currency)[1];
     const exchangeRateNumber = Number(exchangeRateCurrencyWanted.ask);
@@ -80,11 +78,13 @@ class Wallet extends Component {
         currency,
         method,
         tag,
-        user: email,
         exchangeRate: exchangeRateNumber,
         currencyName,
       }),
-      headers,
+      headers: {
+        ...headers,
+        Authorization: token,
+      },
     };
     await fetch(`${MY_API_URL}/carteira`, configs)
       .then((response) => response.json())
@@ -100,7 +100,7 @@ class Wallet extends Component {
     delete exchangeRates.USDT;
 
     const { value, description, currency, method, tag } = this.state;
-    const { email } = this.props;
+    const token = Cookies.get('token');
     const exchangeRateCurrencyWanted = Object.entries(exchangeRates)
       .find((curr) => curr[1].code === currency)[1];
     const exchangeRateNumber = Number(exchangeRateCurrencyWanted.ask);
@@ -113,11 +113,13 @@ class Wallet extends Component {
         currency,
         method,
         tag,
-        user: email,
         exchangeRate: exchangeRateNumber,
         currencyName,
       }),
-      headers,
+      headers: {
+        ...headers,
+        Authorization: token,
+      },
     };
     await fetch(`${MY_API_URL}/carteira/${idToEdit}`, configs)
       .then((response) => response.json())
