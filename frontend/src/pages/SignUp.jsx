@@ -58,9 +58,9 @@ export default class SignUp extends Component {
     const { history } = this.props;
     return (
       <div className="loginPage">
+        <div className="loginPage--logo" />
         <div className="main--login-page">
-          <div className="loginPage--logo" />
-          <h2 className="loginPage--header">Criar conta</h2>
+          <div className="loginPage--signup--logo" />
           <div className="loginPage--txt_field">
             <input
               type="text"

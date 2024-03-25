@@ -68,9 +68,9 @@ class Login extends React.Component {
     const { history } = this.props;
     return (
       <div className="loginPage">
+        <div className="loginPage--logo" />
         <div className="main--login-page">
-          <div className="loginPage--logo" />
-          <h2 className="loginPage--header">Login</h2>
+          <div className="loginPage--login--logo" />
           <div className="loginPage--txt_field">
             <input
               type="text"

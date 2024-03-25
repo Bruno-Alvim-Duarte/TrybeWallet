@@ -11,8 +11,9 @@ body {
 .loginPage {
   align-items: center;
   display: flex;
+  flex-direction: column;
   height: 100vh;
-  justify-content: center;
+  justify-content: space-between;
   width: 100vw;
 }
 
@@ -26,7 +27,6 @@ body {
   padding: 20px;
   text-align: center;
   width: 30rem;
-
 }
 
 .loginPage button {
@@ -36,9 +36,27 @@ body {
 .loginPage--logo {
   background-image: url('../imgs/TrybeWalletLogo.png');
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: contain;
+  height: 112px;
+  margin-top: 30px;
+  width: 530px;
+}
+
+.loginPage--login--logo {
+  background-image: url('../imgs/Login-Trybewallet.png');
+  background-repeat: no-repeat;
+  background-size: contain;
   height: 100px;
-  width: 300px;
+  width: 400px;
+}
+
+.loginPage--signup--logo {
+  background-image: url('../imgs/Signup-Trybewallet.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 100px;
+  margin-right: 50px;
+  width: 400px;
 }
 
 
