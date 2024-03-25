@@ -10,11 +10,13 @@
 .wallet--main {
   background-color: white;
   border-radius: 1.6rem;
+  box-shadow: -6px 6px 15px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   font-family: Epilogue, sans-serif;
   height: 20rem;
   justify-content: space-between;
   padding: 20px;
+  width: 80rem;
   z-index: 1;
 }

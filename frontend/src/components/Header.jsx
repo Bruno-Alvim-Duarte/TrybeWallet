@@ -20,7 +20,7 @@ class Header extends Component {
           <img src={ coins } alt="" />
           <span>Despesa Total:</span>
           {' '}
-          <div>
+          <div className="flex">
             <span data-testid="total-field" className="header--ammount-value">
               { Total }
 
